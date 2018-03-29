@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,17 +28,17 @@ public class ManterPaisController extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
-  
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String 	pNome = request.getParameter("nome");
-		long 	pPop  = Long.parseLong(request.getParameter("pop"));
-		double	pArea = Double.parseDouble(request.getParameter("area"));
+
+		String pNome = request.getParameter("pnome");
+		long pPop = Long.parseLong(request.getParameter("pop"));
+		double pArea = Double.parseDouble(request.getParameter("area"));
 
 		// instanciar o javabean
 		Pais pais = new Pais();
@@ -50,13 +51,10 @@ public class ManterPaisController extends HttpServlet {
 		ps.criar(pais);
 		pais = ps.carregar(pais.getId());
 
-		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>Cadastro de Pais</title></head><body>");
-		out.println("id: " + pais.getId() + "<br>");
-		out.println("nome: " + pais.getNome() + "<br>");
-		out.println("populacao: " + pais.getPopulacao() + "<br>");
-		out.println("area: " + pais.getArea() + "<br>");
-		out.println("</body></html>");
+		// enviar para o jsp
+		request.setAttribute("pais", pais);
+		RequestDispatcher view = request.getRequestDispatcher("Pais.jsp");
+		view.forward(request, response);
 
 	}
 
