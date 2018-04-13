@@ -13,31 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import Model.Pais;
 import Service.PaisService;
 
-/**
- * Servlet implementation class ManterpaisController
- */
+
 @WebServlet("/ManterPais.do")
 public class ManterPaisController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String pNome = request.getParameter("pnome");
-		long pPop = Long.parseLong(request.getParameter("pop"));
+		String pNome = request.getParameter("nome");
+		long pPop = Long.parseLong(request.getParameter("populacao"));
 		double pArea = Double.parseDouble(request.getParameter("area"));
 
 		// instanciar o javabean
@@ -58,4 +50,4 @@ public class ManterPaisController extends HttpServlet {
 
 	}
 
-}
+}; 
